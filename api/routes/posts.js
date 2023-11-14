@@ -76,16 +76,16 @@ router.get("/:id", async (req, res) => {
 
 // Get timeline posts (post de gente que sigues)
 
-router.get("/timeline/all", async (req, res) => {
+router.get("/timeline/:userId", async (req, res) => {
     try {
-      const currentUser = await User.findById(req.body.userId);
+      const currentUser = await User.findById(req.params.userId);
       const userPosts = await Post.find({ userId: currentUser._id }); // Nos busca todos los posts de tu user
       const friendPosts = await Promise.all( // Uso Promise.all ya que sino no nos va a hacer el fetch por usar map
         currentUser.followings.map((friendId) => {
           return Post.find({ userId: friendId });
         })
       );
-      res.json(userPosts.concat(...friendPosts)) // Nos da todos los friendsPost y nos los une a tus userPosts para que los puedas ver ambos en la timeline
+      res.status(200).json(userPosts.concat(...friendPosts)) // Nos da todos los friendsPost y nos los une a tus userPosts para que los puedas ver ambos en la timeline
     } catch (err) {
       res.status(500).json(err);
     }

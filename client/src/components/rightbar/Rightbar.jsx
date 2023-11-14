@@ -7,10 +7,6 @@ export default function Rightbar({profile}) {
   const HomeRightbar = () => {
     return(
       <>
-      <div className="birthdayContainer">
-          <img src="/assets/gift.png" alt="" className="birthdayImg" />
-          <span className="birthdayText"><b>Antonio Garcia</b> and <b>3 other friends</b> have a birthday today</span>
-        </div>
           <a target="_blank" rel="noreferrer" href="https://github.com/abrahamgw14">
             <img src="/assets/github.jpg" alt="" className="rightbarGit"/>
           </a>
