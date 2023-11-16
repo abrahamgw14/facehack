@@ -29,7 +29,7 @@ export default function Post({post}) {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
-                    <img className="postProfileImg" src={user.profilePicture} alt="" />
+                    <img className="postProfileImg" src={user.profilePicture || "../../../public/assets/person/profilepicture.jpg"} alt="" />
                     <span className="postUsername">{user.username}</span>
                     <span className="postDate">{post.date}</span>
                 </div>
@@ -39,7 +39,7 @@ export default function Post({post}) {
             </div>
             <div className="postCenter">
                 <span className="postText">{post?.desc}</span>
-                <img className="postImg"src={post.photo} alt="" />
+                <img className="postImg"src={`../../../public/assets/post/${post.img}`} alt="" />
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
