@@ -25,7 +25,7 @@ export default function Feed() {
         <div className="feedWrapper">
             <Share/>
             {posts ? posts.map((p)=> (
-              <p key={p.id}>{p.desc}</p>
+              <Post key={p.id} post={p} />
             )) : <>Loading...</>}
         </div>
     </div>

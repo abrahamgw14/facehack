@@ -12,7 +12,6 @@ export default function Post({post}) {
         const fetchUser = async () => {
           try {
             const res = await getUser()
-            console.log(res)
             setUser(res.data)
           } catch(err){
             console.error(err)
@@ -46,7 +45,7 @@ export default function Post({post}) {
                 <div className="postBottomLeft">
                     <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
                     <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
-                    <span className="postLikeCounter">{likes} people liked it </span>
+                    <span className="postLikeCounter">{like} people liked it </span>
                 </div>
                 <div className="postBottomRight">
                     <span className="postCommentText">{post.comment} comments</span>

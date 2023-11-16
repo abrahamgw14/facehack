@@ -10,5 +10,5 @@ export function getTimeline() {
 }
 
 export function getUser() {
-    return http.get(`/users/${post.userId}`)
+    return http.get(`/users/654d3576a987e3628e02a1dc`)
 }
