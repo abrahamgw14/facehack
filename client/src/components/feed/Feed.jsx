@@ -3,14 +3,19 @@ import Post from "../post/Post"
 import Share from "../share/Share"
 import "./feed.css"
 import axios from "axios"
+import { getTimeline } from "../../services/api-services"
 
 export default function Feed() {
-  const [posts, setPosts] = useState([])
+  const [posts , setPosts] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("posts/timeline/654d3576a987e3628e02a1dc")
-      console.log(res)
+      try {
+        const res = await getTimeline()
+        setPosts(res.data)
+      } catch(err){
+        console.error(err)
+      }
     }
    fetchPosts()
   },[]) // Asi no esta renderizando constantemente
@@ -19,9 +24,9 @@ export default function Feed() {
     <div className="feed">
         <div className="feedWrapper">
             <Share/>
-            {/*{Posts.map((p)=> (
-              <Post key={p.id}post={p}/>
-            ))}*/}
+            {posts ? posts.map((p)=> (
+              <p key={p.id}>{p.desc}</p>
+            )) : <>Loading...</>}
         </div>
     </div>
   )

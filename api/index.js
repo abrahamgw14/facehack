@@ -1,7 +1,11 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
+const cors = require("./config/cors.config")
 const express = require("express");
 const app = express();
+app.use(cors)
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const userRoute = require("./routes/users")
@@ -9,7 +13,6 @@ const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
 
 
-dotenv.config();
 
 const mongodbUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/facehack"
 
