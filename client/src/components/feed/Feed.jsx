@@ -3,29 +3,31 @@ import Post from "../post/Post"
 import Share from "../share/Share"
 import "./feed.css"
 import axios from "axios"
-import { getTimeline } from "../../services/api-services"
+import { getTimeline, getUserProfile } from "../../services/api-services"
 
-export default function Feed() {
+export default function Feed({username}) {
   const [posts , setPosts] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await getTimeline()
+        const res = username 
+        ? await getUserProfile() // Si hay profile ("/posts/profile/"+username) (muestra los posts del user profile)
+        : await getTimeline() // Si no muestra la timeline
         setPosts(res.data)
       } catch(err){
         console.error(err)
       }
     }
    fetchPosts()
-  },[]) // Asi no esta renderizando constantemente
+  },[username]) // Asi no esta renderizando constantemente
 
   return (
     <div className="feed">
         <div className="feedWrapper">
             <Share/>
             {posts ? posts.map((p)=> (
-              <Post key={p.id} post={p} />
+              <Post key={p._id} post={p} />
             )) : <>Loading...</>}
         </div>
     </div>

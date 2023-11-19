@@ -6,9 +6,13 @@ const http = axios.create({
 })
 
 export function getTimeline() {
-    return http.get("/posts/timeline/654d3576a987e3628e02a1dc")
+    return http.get("/posts/timeline/6550ef155339b525ba6daa20") // Todos los posts
 }
 
 export function getUser() {
-    return http.get(`/users/654d3576a987e3628e02a1dc`)
+    return http.get("/users/6550ef155339b525ba6daa20") // /users/${post.userId}
+}
+
+export function getUserProfile() {
+    return http.get("/posts/profile/" + username) // Todos los posts de un usuario DENTRO del perfil del usuario
 }

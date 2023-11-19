@@ -8,9 +8,9 @@ app.use(cors)
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const userRoute = require("./routes/users")
-const authRoute = require("./routes/auth")
-const postRoute = require("./routes/posts")
+const userRoute = require("./routes/users.route")
+const authRoute = require("./routes/auth.route")
+const postRoute = require("./routes/posts.route")
 
 
 
