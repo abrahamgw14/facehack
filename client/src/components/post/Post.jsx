@@ -1,14 +1,24 @@
 import "./post.css"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useEffect, useState } from "react";
-import { getUser } from "../../services/api-services";
 import {format} from "timeago.js"
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Post({post}) {
     const [like, setLike] = useState(post.likes.length)
     const [isLiked, setIsLiked] = useState(false)
     const [user, setUser] = useState({})
+
+
+    const http = axios.create({
+        baseURL: "http://127.0.0.1:3000/api",
+        withCredentials: true
+    })
+
+    function getUser() {
+        return http.get(`/users?userId=${post.userId}`)
+    }
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -31,7 +41,7 @@ export default function Post({post}) {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
-                    <Link to={`/profile/${user.username}`}> {/* no me coge el user.username*/}
+                    <Link to={`/profile/${user.username}`}>
                         <img className="postProfileImg" src={user.profilePicture || "../../../public/assets/person/profilepicture.jpg"} alt="" />
                     </Link>
                     <span className="postUsername">{user.username}</span>

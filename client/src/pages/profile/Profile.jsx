@@ -4,10 +4,21 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Rightbar'
 import { useEffect, useState } from "react"
-import { getUser } from "../../services/api-services"
+import axios from "axios"
+import { useParams } from "react-router-dom"
 
 export default function Profile() {
   const [user, setUser] = useState({})
+  const username = useParams().username
+
+  const http = axios.create({
+    baseURL: "http://127.0.0.1:3000/api",
+    withCredentials: true
+})
+
+  function getUser() {
+    return http.get(`/users?username=${username}`)
+  }
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,8 +30,9 @@ export default function Profile() {
       }
     }
    fetchUser()
-  },[])
+  },[username])
 
+  
     return (
       <>
         <Topbar />
@@ -31,12 +43,12 @@ export default function Profile() {
               <div className="profileCover">
                 <img
                   className="profileCoverImg"
-                  src="/assets/post/3.jpeg"
+                  src={user.coverPicture || "../../../public/assets/nocover.jpg"}
                   alt=""
                 />
                 <img
                   className="profileUserImg"
-                  src="/assets/person/7.jpeg"
+                  src={user.profilePicture || "../../../public/assets/person/profilepicture.jpg"}
                   alt=""
                 />
               </div>
@@ -46,8 +58,8 @@ export default function Profile() {
               </div>
             </div>
             <div className="profileRightBottom">
-              <Feed username="manuel"/>
-              <Rightbar profile/>
+              <Feed username={username}/>
+              <Rightbar user={user}/>
             </div>
           </div>
         </div>
