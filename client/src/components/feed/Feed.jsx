@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Post from "../post/Post"
 import Share from "../share/Share"
 import "./feed.css"
 import axios from "axios"
+import { AuthContext } from "../../context/authContext"
 
 export default function Feed({username}) {
   const [posts , setPosts] = useState(null);
+  const {user} = useContext(AuthContext)
 
   const http = axios.create({
     baseURL: "http://127.0.0.1:3000/api",
@@ -13,7 +15,7 @@ export default function Feed({username}) {
 })
 
 function getTimeline() {
-    return http.get("/posts/timeline/6550ef155339b525ba6daa20")
+    return http.get("/posts/timeline/" + user._id)
 }
 
 function getUserProfilePost() {
@@ -32,7 +34,7 @@ function getUserProfilePost() {
       }
     }
    fetchPosts()
-  },[username]) // Asi no esta renderizando constantemente
+  },[username,user._id]) // Asi no esta renderizando constantemente
 
   return (
     <div className="feed">

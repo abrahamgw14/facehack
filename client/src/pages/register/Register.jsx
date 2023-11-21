@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./register.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,17 +8,13 @@ export default function Register() {
   const email = useRef();
   const password = useRef()
   const passwordAgain = useRef()
-  const history = useNavigate()
-
+  const navigate = useNavigate()
 
   const http = axios.create({
     baseURL: "http://127.0.0.1:3000/api",
     withCredentials: true
 })
 
-  function getTimeline() {
-    return http.post("/auth/register")
-}
 
   const handleClick = async (e) => {
     e.preventDefault()
@@ -31,8 +27,8 @@ export default function Register() {
         password: password.current.value,
       }
       try{
-        await getTimeline() + user
-        history.push("/login")
+        http.post("/auth/register", user)
+        navigate('/login');
       } catch(err){
         console.log(err)
       }
