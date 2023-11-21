@@ -25,11 +25,23 @@ const http = axios.create({
       userId: user._id,
       desc: desc.current.value,
     }
-    
-    try{
-     await http.post("/posts/",newPost)
-    } catch(err){}
-  }
+
+    if (file) {
+      const data = new FormData();
+      const fileName = Date.now() + file.name; // Para que no haya imagenes con mismo nombre ex: 123123img.png
+      data.append("name", fileName);
+      data.append("file", file);
+      newPost.img = fileName;
+      console.log(newPost);
+      try {
+        await http.post("/upload", data);
+      } catch (err) {}
+    }
+    try {
+      await http.post("/posts", newPost);
+      window.location.reload();
+    } catch (err) {}
+  };
 
   return (
     <div className="share">
@@ -45,7 +57,13 @@ const http = axios.create({
             <label htmlFor="file" className="shareOption">
               <PermMediaIcon htmlColor="tomato" className="shareIcon"/>
               <span className="shareOptionText">Photo or Video</span>
-              <input style={{display: "none"}} type="file" id="file" accept=".png,.jpeg,.jpg" onChange={(e) => setFile(e.target.file[0])}/>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                id="file"
+                accept=".png,.jpeg,.jpg"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
             </label>
             <div className="shareOption">
               <LabelIcon htmlColor="blue" className="shareIcon"/>

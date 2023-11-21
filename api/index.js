@@ -13,13 +13,16 @@ const userRoute = require("./routes/users.route")
 const authRoute = require("./routes/auth.route")
 const postRoute = require("./routes/posts.route")
 const multer = require("multer")
-
+const path = require("path")
 
 const mongodbUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/facehack"
 
 mongoose.connect(mongodbUri)
 .then(() => console.info(`Succesfully connected to the database ${mongodbUri}`))
 .catch(error => console.error(`An error trying to connect to the database ${mongodbUri}`))
+
+
+app.use("/images", express.static(path.join(__dirname, "/public/images"))) // Si usas este path no hagas ninguna request y ve a esa direccion
 
 //middleware
 app.use(express.json());
@@ -28,10 +31,10 @@ app.use(morgan("common"));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    cb(null, "../client/public/assets/post/");
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, req.body.name);
   },
 });
 
