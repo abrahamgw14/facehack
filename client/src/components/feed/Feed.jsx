@@ -14,32 +14,27 @@ export default function Feed({username}) {
     withCredentials: true
 })
 
-function getTimeline() {
-    return http.get("/posts/timeline/" + user._id)
-}
-
-function getUserProfilePost() {
-  return http.get("/posts/profile/" + username)
-}
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = username 
-        ? await getUserProfilePost() 
-        : await getTimeline()
-        setPosts(res.data)
+        ? await http.get("/posts/profile/" + username) 
+        : await http.get("/posts/timeline/" + user._id)
+        setPosts(res.data.sort((p1,p2) => {
+          return new Date(p2.createdAt) - new Date(p1.createdAt) // Nos compara las fechas de creacion entre posts para poner primero los mas recientes
+        }))
       } catch(err){
         console.error(err)
       }
     }
    fetchPosts()
-  },[username,user._id]) // Asi no esta renderizando constantemente
+  },[username, user._id]) // Asi no esta renderizando constantemente
 
   return (
     <div className="feed">
         <div className="feedWrapper">
-            <Share/>
+            {(!username || username === user.username) && <Share/>}
             {posts ? posts.map((p)=> (
               <Post key={p._id} post={p} />
             )) : <>Loading...</>}

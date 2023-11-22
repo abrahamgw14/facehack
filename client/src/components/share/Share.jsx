@@ -6,6 +6,7 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../context/authContext"
 import axios from "axios";
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function Share() {
   
@@ -52,6 +53,12 @@ const http = axios.create({
         </div>
 
         <hr className="shareHr" />
+        {file && (
+          <div className="shareImgContainer">
+            <img src={URL.createObjectURL(file)} alt="" className="shareImg" />
+          <CancelIcon className="shareCancelImg" onClick={() => setFile(null)}/>
+          </div>
+        )}
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">

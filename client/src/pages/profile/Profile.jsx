@@ -16,14 +16,10 @@ export default function Profile() {
     withCredentials: true
 })
 
-  function getUser() {
-    return http.get(`/users?username=${username}`)
-  }
-
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await getUser()
+        const res = await http.get(`/users?username=${username}`)
         setUser(res.data)
       } catch(err){
         console.error(err)
@@ -43,12 +39,12 @@ export default function Profile() {
               <div className="profileCover">
                 <img
                   className="profileCoverImg"
-                  src={user.coverPicture || "../../../public/assets/nocover.jpg"}
+                  src={user.coverPicture ? "../../../public/assets/" + user.coverPicture : "../../../public/assets/nocover.jpg"}
                   alt=""
                 />
                 <img
                   className="profileUserImg"
-                  src={user.profilePicture || "../../../public/assets/person/profilepicture.jpg"}
+                  src={user.profilePicture ? "../../../public/assets/" + user.profilePicture : "../../../public/assets/person/profilepicture.jpg"}
                   alt=""
                 />
               </div>
