@@ -7,24 +7,39 @@ import {Link} from 'react-router-dom';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext"
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function Topbar() {
   const http = axios.create({
     baseURL: "http://127.0.0.1:3000/api",
     withCredentials: true
   })
+    const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const { user } = useContext(AuthContext);
 
     const handleSearch = async () => {
       try {
-        const response = await http.get(`/users?userId=${user.username}`);
-        setSearchResults(response.data);
+        const response = await http.get(`/users?username=${searchTerm}`);
+        const userData = response.data;
+  
+        // Verifica si se encontró algún usuario
+        if (userData) {
+          // Redirige al perfil del usuario encontrado
+          navigate(`/profile/${userData.username}`);
+        } else {
+          // Maneja el caso en el que no se encuentra el usuario
+          console.log("Usuario no encontrado");
+        }
+  
+        // Actualiza los resultados de búsqueda si es necesario
+        setSearchResults(userData);
       } catch (error) {
         console.error("Error searching users:", error);
       }
     };
+    
     return (
       <div className="topbarContainer">
         <div className="topbarLeft">
