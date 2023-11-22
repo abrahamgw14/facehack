@@ -1,6 +1,5 @@
 import "./rightbar.css"
 import { Users } from "../../dummyData"
-import Online from "../online/Online"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
@@ -59,12 +58,6 @@ useEffect(() => {
           <a target="_blank" rel="noreferrer" href="https://github.com/abrahamgw14">
             <img src="/assets/github.jpg" alt="" className="rightbarGit"/>
           </a>
-        <h4 className="rightbarTitle">Online Friends</h4>
-        <ul className="rightbarFriendList">
-          {Users.map(u=>(
-            <Online key={u.id} user={u} />
-          ))}
-        </ul>
       </>
     )
   }

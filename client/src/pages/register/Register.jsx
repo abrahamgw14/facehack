@@ -15,7 +15,6 @@ export default function Register() {
     withCredentials: true
 })
 
-
   const handleClick = async (e) => {
     e.preventDefault()
     if(passwordAgain.current.value !== password.current.value) {
@@ -51,7 +50,7 @@ export default function Register() {
             <input placeholder="Password" required ref={password} type="password" minLength="8" className="loginInput" />
             <input placeholder="Password Again" required ref={passwordAgain} type="password" minLength="8" className="loginInput" />
             <button className="loginButton" type="submit">Sign Up</button>
-            <button className="loginRegisterButton">
+            <button className="loginRegisterButton" onClick={() => navigate('/login')}>
               Log into Account
             </button>
           </form>
