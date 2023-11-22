@@ -1,3 +1,5 @@
+
+
 .topbarContainer{
     height: 50px;
     width: 100%;
@@ -37,6 +39,7 @@
 .searchIcon {
     font-size: 20px !important;
     margin-left: 10px;
+    cursor:pointer;
 }
 
 .searchInput {
@@ -93,4 +96,25 @@
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
+}
+
+.topbarUsername{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    cursor:pointer;
+    display: flex;
+    margin-left: 100px;
+    font-family: 'Arial', sans-serif;
+}
+
+.buttonSearch{
+    display: flex;
+    top: -5px;
+    right: -5px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-left: 0px;
+    
 }

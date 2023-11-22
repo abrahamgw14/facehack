@@ -49,35 +49,33 @@ export default function Topbar() {
         </div>
         <div className="topbarCenter">
           <div className="searchbar">
-            <SearchIcon className="searchIcon" />
+            <SearchIcon className="searchIcon" onClick={handleSearch}></SearchIcon>
           <input
             placeholder="Search for friend, post or video"
             className="searchInput"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button onClick={handleSearch}>Search</button>
         </div>
         </div>
         <div className="topbarRight">
           <div className="topbarLinks">
-            <span className="topbarLink">Homepage</span>
-            <span className="topbarLink">Timeline</span>
           </div>
           <div className="topbarIcons">
             <div className="topbarIconItem">
               <PersonIcon />
-              <span className="topbarIconBadge">1</span>
+              <span className="topbarIconBadge">0</span>
             </div>
             <div className="topbarIconItem">
               <ChatIcon />
-              <span className="topbarIconBadge">2</span>
+              <span className="topbarIconBadge">0</span>
             </div>
             <div className="topbarIconItem">
               <NotificationsIcon />
-              <span className="topbarIconBadge">1</span>
+              <span className="topbarIconBadge">0</span>
             </div>
           </div>
+          <span className="topbarUsername">{user.username}</span>
           <Link to={`/profile/${user.username}`}>
             <img src={user.profilePicture ? "../../../public/assets/" + user.profilePicture : "../../../public/assets/" + "person/profilepicture.jpg"} alt="" className="topbarImg"/>
           </Link>
